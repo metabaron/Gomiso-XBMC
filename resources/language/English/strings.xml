@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<string id="45001">General Settings</string>
+	<string id="45013">Submission options</string>
+	
+	<string id="45005">Username</string>
+	<string id="45006">Password</string>
+	<string id="45015">Submit after watching XX percent</string>
+</strings>

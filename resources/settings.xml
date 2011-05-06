@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+  <setting type="lsep" label="45001" />
+  <setting id="Username" type="text" label="45005" default="" />
+  <setting id="Password" type="text" option="hidden" label="45006" default="" />
+  
+  <setting type="lsep" label="45013" />
+  <setting id="VideoThreshold" type="enum" label="45015" values="25%|75%" default="1" />
+</settings>

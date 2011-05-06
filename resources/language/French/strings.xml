@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<string id="45001">Options Générales</string>
+	<string id="45013">Options d'envois des informations</string>
+	
+	<string id="45005">Nom d'utilisateur</string>
+	<string id="45006">Mot de passe</string>
+	<string id="45015">Soumettre les infos après XX%</string>
+</strings>
