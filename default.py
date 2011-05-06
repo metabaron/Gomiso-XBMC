@@ -9,7 +9,7 @@ import time
 __author__ = "Mathieu Feulvarch"
 __copyright__ = "Copyright 2011, Mathieu Feulvarch "
 __license__ = "GPL"
-__version__ = "0.1"
+__version__ = "1.0"
 __maintainer__ = "Mathieu Feulvarch"
 __email__ = "mathieu@feulvarch.fr"
 __status__ = "Production"
