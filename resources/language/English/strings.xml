@@ -6,4 +6,8 @@
 	<string id="45005">Username</string>
 	<string id="45006">Password</string>
 	<string id="45015">Submit after watching XX percent</string>
+	<string id="45016">Connected</string>
+	<string id="45017">Not found on gomiso</string>
+	<string id="45018">Submitted</string>
+	<string id="45019">Watched on XBMC (Gomiso plugin)</script>
 </strings>

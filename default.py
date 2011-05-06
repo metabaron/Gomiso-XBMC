@@ -24,7 +24,7 @@ BASE_RESOURCE_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'li
 LANGUAGE_RESOURCE_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'language' ) )
 sys.path.append (BASE_RESOURCE_PATH)
 sys.path.append (LANGUAGE_RESOURCE_PATH)
-AUTOEXEC_SCRIPT = '\nimport time\nimport xbmc\n\ntime.sleep(5)\nxbmc.executebuiltin("XBMC.RunScript(special://home/addons/script.gomiso-0.1/default.py,-startup)")\n'
+AUTOEXEC_SCRIPT = '\nimport time\nimport xbmc\n\ntime.sleep(5)\nxbmc.executebuiltin("XBMC.RunScript(special://home/addons/script.gomiso/default.py,-startup)")\n'
 AUTOEXEC_FILE = xbmc.translatePath('special://home/userdata/autoexec.py')
 AUTOEXEC_FOLDER_PATH = xbmc.translatePath('special://home/userdata/')
 
@@ -100,7 +100,6 @@ elif os.path.isfile(settingsFile) != True:
 username = __settings__.getSetting('Username')
 password = __settings__.getSetting('Password')
 
-
 #Class instanciation and authentification with application key and secret
 letsGo = gomiso()
 while letsGo.authentification('AgmVUNp8BgtTLQWElAnA', 'BL7xQH3Aeut68IWsOD6SGoUfsRqkC5t16jLg', username, password, tokensFile) == False:
@@ -111,7 +110,7 @@ while letsGo.authentification('AgmVUNp8BgtTLQWElAnA', 'BL7xQH3Aeut68IWsOD6SGoUfs
 
 #Retrieving user information and display a message that authentification is ok
 json_result = json.loads(letsGo.getUserInfo())
-xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', 'Hello ' + json_result['user']['username'], 5000, __settings__.getAddonInfo("icon")))
+xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', json_result['user']['username'] + " " + __language__(45016), 5000, __settings__.getAddonInfo("icon")))
 
 videoThreshold = int(__settings__.getSetting( "VideoThreshold" ))
 if videoThreshold == 0:
@@ -143,11 +142,11 @@ while (not xbmc.abortRequested):
 					json_result = json.loads(letsGo.findMedia(showname, 'tv', 1))
 					if len(json_result) != 0:
 						xbmc.log('###Length: ' + str(len(json_result)))
-						letsGo.checking(json_result[0]['media']['id'], season, episode, 'watched on XBMC with gomiso addon')
-						screenMessage = showname + ' S' + season + 'E' + episode + ' submitted'
+						letsGo.checking(json_result[0]['media']['id'], season, episode, __language__(45019))
+						screenMessage = showname + ' S' + season + 'E' + episode + ' ' + __language__(45018)
 						xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', screenMessage, 5000, __settings__.getAddonInfo("icon")))
 					else:
-						xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' not found on gomiso', 5000, __settings__.getAddonInfo("icon")))
+						xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' ' + __language__(45017), 5000, __settings__.getAddonInfo("icon")))
 					checkedTitle = currentTitle
 				#Or are we watching a movie
 				elif len(xbmc.getInfoLabel("VideoPlayer.Title")) >= 1:
@@ -159,7 +158,7 @@ while (not xbmc.abortRequested):
 					json_result = json.loads(letsGo.findMedia(movieName, 'movie', 1))
 					if len(json_result) != 0:
 						letsGo.checking(json_result[0]['media']['id'], season, episode, 'watched on XBMC with gomiso addon')
-						xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' submitted', 5000, __settings__.getAddonInfo("icon")))
+						xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(45018), 5000, __settings__.getAddonInfo("icon")))
 					else:
-						xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' not found on gomiso', 5000, __settings__.getAddonInfo("icon")))
+						xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(45017), 5000, __settings__.getAddonInfo("icon")))
 					checkedTitle = currentTitle
