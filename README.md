@@ -19,7 +19,9 @@ The XMBC plugin for gomiso updates it with what you've been watching in XBMC. Fo
 		Installation instructions: 
 		After installing this plugin, sign up for an account at http://gomiso.com.  Then.. 
 		
-		1. Navigate to Home > Programs and activate gomiso (location of gomiso activation is skin dependent and may be in other places labeled Addons, Scripts, etc.)
+		1. Navigate to Home > Programs and activate gomiso (location of gomiso activation is skin dependent and may be in other places
+		 labeled Addons, Scripts, etc.)
 		2. Enter in username and password that you have set up on the gomiso website and any other configuration you would like 
 		
-		Note: if you do not configure gomiso to autostart, you will need to repeat step 1 any time you would like to submit tv shows or movies
+		Note: if you do not configure gomiso to autostart, you will need to repeat step 1 any time you would like to submit tv shows
+		 or movies
