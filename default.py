@@ -14,11 +14,11 @@ __maintainer__ = "Mathieu Feulvarch"
 __email__ = "mathieu@feulvarch.fr"
 __status__ = "Production"
 
-__settings__ = xbmcaddon.Addon(id='script.gomiso')
-__language__ = __settings__.getLocalizedString
-_ = sys.modules[ "__main__" ].__language__
-__cwd__ = __settings__.getAddonInfo('path')
 __scriptID__ = "script.gomiso"
+__settings__ = xbmcaddon.Addon(id=__scriptID__)
+__language__ = __settings__.getLocalizedString
+__cwd__ = __settings__.getAddonInfo('path')
+
 
 BASE_RESOURCE_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'lib' ) )
 LANGUAGE_RESOURCE_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'language' ) )
@@ -31,6 +31,9 @@ AUTOEXEC_FOLDER_PATH = xbmc.translatePath('special://home/userdata/')
 addon_work_folder = os.path.join(xbmc.translatePath( "special://profile/addon_data/" ), __scriptID__)
 tokensFile = addon_work_folder + '/tokens'
 settingsFile = addon_work_folder + '/settings.xml'
+
+
+print __language__(601)
 
 #Now that we appended the directories, let's import
 from gomiso import gomiso
