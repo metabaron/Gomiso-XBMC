@@ -18,11 +18,7 @@ Usage
 -----
 The XMBC plugin for gomiso updates it with what you've been watching in XBMC. For best results, make sure you are in library mode.
 		
-		Installation instructions:
-		Download the ZIP file from GitHub and rename it as "script.gomiso.zip".
-		Install it following the "System > Addons > Install from ZIP file" process.
-		
-		Soon, the script should be available through the official XBMC repository.
+		The script is available through the official XBMC repository.
 		
 		After installing this plugin, sign up for an account at http://gomiso.com.  Then.. 
 		
