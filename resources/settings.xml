@@ -2,7 +2,7 @@
 <settings>
   <setting type="lsep" label="30901" />
   <setting id="Username" type="text" label="30905" default="" />
-  <setting id="Password" type="text" option="password" label="30906" default="" />
+  <setting id="Password" type="text" option="hidden" label="30906" default="" />
 
 	<setting type="lsep" label="30913" />
 	<setting id="NotifyOnSubmit" type="bool" label="30920" default="true" />

@@ -2,6 +2,7 @@ import xbmc
 import xbmcaddon
 import os
 import time
+import simplejson as json
 
 """Main code for interaction between Gomiso (www.gomiso.com) and XBMC (www.xbmc.org)
 """
@@ -9,7 +10,7 @@ import time
 __author__ = "Mathieu Feulvarch"
 __copyright__ = "Copyright 2011, Mathieu Feulvarch "
 __license__ = "GPL"
-__version__ = "1.1"
+__version__ = "1.2"
 __maintainer__ = "Mathieu Feulvarch"
 __email__ = "mathieu@feulvarch.fr"
 __status__ = "Production"
@@ -36,8 +37,6 @@ print __language__(601)
 
 #Now that we appended the directories, let's import
 from gomiso import gomiso
-import simplejson as json
-
 
 def setAutostart():
 	bFound = False
@@ -104,74 +103,71 @@ password = __settings__.getSetting('Password')
 
 #Class instanciation and authentification with application key and secret
 letsGo = gomiso()
-while letsGo.authentification('AgmVUNp8BgtTLQWElAnA', 'BL7xQH3Aeut68IWsOD6SGoUfsRqkC5t16jLg', username, password, tokensFile) == False:
-	__settings__.openSettings()
-	username = __settings__.getSetting('Username')
-	password = __settings__.getSetting('Password')
-
-
-#Retrieving user information and display a message that authentification is ok
-json_result = json.loads(letsGo.getUserInfo())
-xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', json_result['user']['username'] + " " + __language__(30916), 5000, __settings__.getAddonInfo("icon")))
-
-videoThreshold = int(__settings__.getSetting( "VideoThreshold" ))
-if videoThreshold == 0:
-	videoThreshold = 75
-elif videoThreshold == 1:
-	videoThreshold = 25
-#videoThreshold=25
-submitLimit = float(videoThreshold) / 100
-checkedTitle = ''
-sleepTime = 10
-
-#Did we display messages on screen when playing video?
-verboseScreen = __settings__.getSetting( "DisplayScreen" )
-if (verboseScreen == 'true'):
-	verboseScreen = True
+if letsGo.authentification('AgmVUNp8BgtTLQWElAnA', 'BL7xQH3Aeut68IWsOD6SGoUfsRqkC5t16jLg', username, password, tokensFile) == False:
+	xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', __language__(30921), 5000, __settings__.getAddonInfo("icon")))
 else:
-	verboseScreen = False
-	
-#This is the main part of the program
-while (not xbmc.abortRequested):
-	time.sleep(sleepTime)
-	if xbmc.Player().isPlayingVideo():
-		currentTitle = xbmc.getInfoLabel("VideoPlayer.Title")
-		##Are we watching a TV show?
-		if currentTitle != checkedTitle:
-			completion = percentageRemaining(xbmc.getInfoLabel("VideoPlayer.Time"), xbmc.getInfoLabel("VideoPlayer.Duration"))
-			if completion > submitLimit:
-				if len(xbmc.getInfoLabel("VideoPlayer.TVshowtitle")) >= 1:
-					#Retrieve TV show information
-					showname = xbmc.getInfoLabel("VideoPlayer.TvShowTitle")
-					showname = showname.replace(",", '')
-					season = xbmc.getInfoLabel("VideoPlayer.Season")
-					episode = xbmc.getInfoLabel("VideoPlayer.Episode")
-					
-					#Retrieve only one entry but would be good to have a threshold level like if more than 20 entries, no submit
-					json_result = json.loads(letsGo.findMedia(showname, 'tv', 1))
-					if len(json_result) != 0:
-						xbmc.log('###Length: ' + str(len(json_result)))
-						#letsGo.checking(json_result[0]['media']['id'], season, episode, __language__(30919))
-						letsGo.checking(json_result[0]['media']['id'], season, episode, "Watched on XBMC - Gomiso plugin")
-						if verboseScreen:
-							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
-					else:
-						if verboseScreen:
-							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
-					checkedTitle = currentTitle
-				#Or are we watching a movie
-				elif len(xbmc.getInfoLabel("VideoPlayer.Title")) >= 1:
-					#Retrieve movie information
-					movieName = xbmc.getInfoLabel("VideoPlayer.Title")
-					movieName = movieName.replace(",", '')
-					
-					#Retrieve only one entry but would be good to have a threshold level like if more than 20 entries, no submit
-					json_result = json.loads(letsGo.findMedia(movieName, 'movie', 1))
-					if len(json_result) != 0:
-						letsGo.checking(json_result[0]['media']['id'], season, episode, 'watched on XBMC with gomiso addon')
-						if verboseScreen:
-							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
-					else:
-						if verboseScreen:
-							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
-					checkedTitle = currentTitle
+	#Retrieving user information and display a message that authentification is ok
+	json_result = json.loads(letsGo.getUserInfo())
+	xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', json_result['user']['username'] + " " + __language__(30916), 5000, __settings__.getAddonInfo("icon")))
+
+	videoThreshold = int(__settings__.getSetting( "VideoThreshold" ))
+	if videoThreshold == 0:
+		videoThreshold = 75
+	elif videoThreshold == 1:
+		videoThreshold = 25
+	#videoThreshold=25
+	submitLimit = float(videoThreshold) / 100
+	checkedTitle = ''
+	sleepTime = 10
+
+	#Did we display messages on screen when playing video?
+	verboseScreen = __settings__.getSetting( "DisplayScreen" )
+	if (verboseScreen == 'true'):
+		verboseScreen = True
+	else:
+		verboseScreen = False
+		
+	#This is the main part of the program
+	while (not xbmc.abortRequested):
+		time.sleep(sleepTime)
+		if xbmc.Player().isPlayingVideo():
+			currentTitle = xbmc.getInfoLabel("VideoPlayer.Title")
+			##Are we watching a TV show?
+			if currentTitle != checkedTitle:
+				completion = percentageRemaining(xbmc.getInfoLabel("VideoPlayer.Time"), xbmc.getInfoLabel("VideoPlayer.Duration"))
+				if completion > submitLimit:
+					if len(xbmc.getInfoLabel("VideoPlayer.TVshowtitle")) >= 1:
+						#Retrieve TV show information
+						showname = xbmc.getInfoLabel("VideoPlayer.TvShowTitle")
+						showname = showname.replace(",", '')
+						season = xbmc.getInfoLabel("VideoPlayer.Season")
+						episode = xbmc.getInfoLabel("VideoPlayer.Episode")
+						
+						#Retrieve only one entry but would be good to have a threshold level like if more than 20 entries, no submit
+						json_result = json.loads(letsGo.findMedia(showname, 'tv', 1))
+						if len(json_result) != 0:
+							xbmc.log('###Length: ' + str(len(json_result)))
+							#letsGo.checking(json_result[0]['media']['id'], season, episode, __language__(30919))
+							letsGo.checking(json_result[0]['media']['id'], season, episode, "Watched on XBMC - Gomiso plugin")
+							if verboseScreen:
+								xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
+						else:
+							if verboseScreen:
+								xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
+						checkedTitle = currentTitle
+					#Or are we watching a movie
+					elif len(xbmc.getInfoLabel("VideoPlayer.Title")) >= 1:
+						#Retrieve movie information
+						movieName = xbmc.getInfoLabel("VideoPlayer.Title")
+						movieName = movieName.replace(",", '')
+						
+						#Retrieve only one entry but would be good to have a threshold level like if more than 20 entries, no submit
+						json_result = json.loads(letsGo.findMedia(movieName, 'movie', 1))
+						if len(json_result) != 0:
+							letsGo.checking(json_result[0]['media']['id'], season, episode, 'watched on XBMC with gomiso addon')
+							if verboseScreen:
+								xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
+						else:
+							if verboseScreen:
+								xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
+						checkedTitle = currentTitle
