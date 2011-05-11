@@ -8,6 +8,8 @@ Purpose
 The project is 100% functional but this is my first attempt to develop for XBMC so please be kind when reading the code ;)
 Also, this is the first time for me with Python so, again, be kind when reading the code.
 
+This XBMC script is using my [Gomiso Python lib](https://github.com/metabaron/Gomiso-Python)
+
 Contributing
 ------------
 When to contribut? Please contact [me](https://github.com/metabaron) instead of forking the project.
