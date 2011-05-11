@@ -31,6 +31,9 @@ addon_work_folder = os.path.join(xbmc.translatePath( "special://profile/addon_da
 tokensFile = addon_work_folder + '/tokens'
 settingsFile = addon_work_folder + '/settings.xml'
 
+
+print __language__(601)
+
 #Now that we appended the directories, let's import
 from gomiso import gomiso
 import simplejson as json
