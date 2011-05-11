@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>
-	<string id="30001">Options Générales</string>
-	<string id="30013">Options d'envois des informations</string>
+	<string id="30901">Options Générales</string>
+	<string id="30913">Options d'envois des informations</string>
 	
-	<string id="30005">Nom d'utilisateur</string>
-	<string id="30006">Mot de passe</string>
-	<string id="30015">Soumettre les infos après XX%</string>
-	<string id="30016">Connecté</string>
-	<string id="30017">Impossible de soumettre</string>
-	<string id="30018">Soumit</string>
-	<string id="30019">Regardé sur XBMC (extension Gomiso)</script>
-	<string id="30020">Afficher les messages quand soumit</script>
+	<string id="30905">Nom d'utilisateur</string>
+	<string id="30906">Mot de passe</string>
+	<string id="30915">Soumettre les infos après XX%</string>
+	<string id="30916">Connecté</string>
+	<string id="30917">Impossible de soumettre</string>
+	<string id="30918">Soumit</string>
+	<string id="30919">Regardé sur XBMC (extension Gomiso)</string>
+	<string id="30920">Afficher les messages quand soumit</string>
 </strings>

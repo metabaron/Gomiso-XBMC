@@ -9,16 +9,15 @@ import time
 __author__ = "Mathieu Feulvarch"
 __copyright__ = "Copyright 2011, Mathieu Feulvarch "
 __license__ = "GPL"
-__version__ = "1.0"
+__version__ = "1.1"
 __maintainer__ = "Mathieu Feulvarch"
 __email__ = "mathieu@feulvarch.fr"
 __status__ = "Production"
 
-__settings__ = xbmcaddon.Addon(id='script.gomiso')
-__language__ = __settings__.getLocalizedString
-_ = sys.modules[ "__main__" ].__language__
-__cwd__ = __settings__.getAddonInfo('path')
 __scriptID__ = "script.gomiso"
+__settings__ = xbmcaddon.Addon(id=__scriptID__)
+__language__ = __settings__.getLocalizedString
+__cwd__ = __settings__.getAddonInfo('path')
 
 BASE_RESOURCE_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'lib' ) )
 LANGUAGE_RESOURCE_PATH = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'language' ) )
@@ -110,9 +109,7 @@ while letsGo.authentification('AgmVUNp8BgtTLQWElAnA', 'BL7xQH3Aeut68IWsOD6SGoUfs
 
 #Retrieving user information and display a message that authentification is ok
 json_result = json.loads(letsGo.getUserInfo())
-#Facing a suddent strange problem with automatic language system, so hardcoding all strings until I found the reason (might be related to encoding from windows / github / linux (my systems)
-#xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', json_result['user']['username'] + " " + __language__(30916), 5000, __settings__.getAddonInfo("icon")))
-xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', json_result['user']['username'] + " connected", 5000, __settings__.getAddonInfo("icon")))
+xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', json_result['user']['username'] + " " + __language__(30916), 5000, __settings__.getAddonInfo("icon")))
 
 videoThreshold = int(__settings__.getSetting( "VideoThreshold" ))
 if videoThreshold == 0:
@@ -154,12 +151,10 @@ while (not xbmc.abortRequested):
 						#letsGo.checking(json_result[0]['media']['id'], season, episode, __language__(30919))
 						letsGo.checking(json_result[0]['media']['id'], season, episode, "Watched on XBMC - Gomiso plugin")
 						if verboseScreen:
-							#xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
-							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' submitted', 5000, __settings__.getAddonInfo("icon")))
+							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
 					else:
 						if verboseScreen:
-							#xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
-							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' not submitted', 5000, __settings__.getAddonInfo("icon")))
+							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
 					checkedTitle = currentTitle
 				#Or are we watching a movie
 				elif len(xbmc.getInfoLabel("VideoPlayer.Title")) >= 1:
@@ -172,10 +167,8 @@ while (not xbmc.abortRequested):
 					if len(json_result) != 0:
 						letsGo.checking(json_result[0]['media']['id'], season, episode, 'watched on XBMC with gomiso addon')
 						if verboseScreen:
-							#xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
-							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' submitted', 5000, __settings__.getAddonInfo("icon")))
+							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
 					else:
 						if verboseScreen:
-							#xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
-							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' not submitted', 5000, __settings__.getAddonInfo("icon")))
+							xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
 					checkedTitle = currentTitle
