@@ -138,9 +138,9 @@ else:
 
 	videoThreshold = int(__settings__.getSetting("VideoThreshold"))
 	if videoThreshold == 0:
-		videoThreshold = 75
-	elif videoThreshold == 1:
 		videoThreshold = 25
+	elif videoThreshold == 1:
+		videoThreshold = 75
 	#videoThreshold=25
 	submitLimit = float(videoThreshold) / 100
 	checkedTitle = ''
@@ -177,7 +177,8 @@ else:
 				if completion > submitLimit:
 					if len(xbmc.getInfoLabel("VideoPlayer.TVshowtitle")) >= 1:
 						#Retrieve TV show information
-						showname = xbmc.getInfoLabel("VideoPlayer.TvShowTitle")
+						#showname = xbmc.getInfoLabel("VideoPlayer.TvShowTitle")
+						showname = unicode(xbmc.getInfoLabel("VideoPlayer.TvShowTitle"), errors="ignore")
 						showname = showname.replace(",", '')
 						season = xbmc.getInfoLabel("VideoPlayer.Season")
 						episode = xbmc.getInfoLabel("VideoPlayer.Episode")
@@ -196,7 +197,8 @@ else:
 					#Or are we watching a movie
 					elif len(xbmc.getInfoLabel("VideoPlayer.Title")) >= 1:
 						#Retrieve movie information
-						movieName = xbmc.getInfoLabel("VideoPlayer.Title")
+						#movieName = xbmc.getInfoLabel("VideoPlayer.Title")
+						movieName = unicode(xbmc.getInfoLabel("VideoPlayer.Title"), errors="ignore")
 						movieName = movieName.replace(",", '')
 						
 						#Retrieve only one entry but would be good to have a threshold level like if more than 20 entries, no submit

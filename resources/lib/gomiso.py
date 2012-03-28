@@ -209,9 +209,9 @@ class gomiso:
 			print 'Cannot retrieve more than 50 results or less than 1 result at once\n'
 			exit()
 		if kind == 'all':
-			resp, token = client.request('http://gomiso.com/api/oauth/v1/media.json?q=' + urllib.quote(unicode(title, 'utf-8')) + '&count=' + str(count), method='GET')
+			resp, token = client.request('http://gomiso.com/api/oauth/v1/media.json?q=' + urllib.quote(title) + '&count=' + str(count), method='GET')
 		else:
-			resp, token = client.request('http://gomiso.com/api/oauth/v1/media.json?q=' + urllib.quote(unicode(title, 'utf-8')) + '&count=' + str(count) + '&kind=' + media_type[kind], method='GET')
+			resp, token = client.request('http://gomiso.com/api/oauth/v1/media.json?q=' + urllib.quote(title) + '&count=' + str(count) + '&kind=' + media_type[kind], method='GET')
 		return token
 
 	def mediaDetails(self, media_id):
