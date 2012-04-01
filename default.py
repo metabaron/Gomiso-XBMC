@@ -189,9 +189,19 @@ else:
 							letsGo.checking(json_result[0]['media']['id'], season, episode, displayMessage)
 							if verboseScreen:
 								xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
-						else:
+						elif (showname[-1]!=")"):
 							if verboseScreen:
 								xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
+						else:
+							#try stripping year from the title (es. "Castle (2009)")
+							json_result = json.loads(letsGo.findMedia(showname[:-7], 'tv', 1))
+							if len(json_result) != 0:							
+								letsGo.checking(json_result[0]['media']['id'], season, episode, displayMessage)
+								if verboseScreen:
+									xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
+							else:
+								if verboseScreen:
+									xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
 						checkedTitle = currentTitle
 					#Or are we watching a movie
 					elif len(xbmc.getInfoLabel("VideoPlayer.Title")) >= 1:
