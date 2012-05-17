@@ -10,7 +10,7 @@ import simplejson as json
 __author__ = "Mathieu Feulvarch"
 __copyright__ = "Copyright 2011, Mathieu Feulvarch "
 __license__ = "GPL"
-__version__ = "1.3.0"
+__version__ = "1.4.0"
 __maintainer__ = "Mathieu Feulvarch"
 __email__ = "mathieu@feulvarch.fr"
 __status__ = "Production"
@@ -210,6 +210,8 @@ else:
 						#movieName = xbmc.getInfoLabel("VideoPlayer.Title")
 						movieName = unicode(xbmc.getInfoLabel("VideoPlayer.Title"), errors="ignore")
 						movieName = movieName.replace(",", '')
+                        season = ''
+                        episode = ''
 						
 						#Retrieve only one entry but would be good to have a threshold level like if more than 20 entries, no submit
 						json_result = json.loads(letsGo.findMedia(movieName, 'movie', 1))
