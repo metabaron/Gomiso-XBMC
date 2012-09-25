@@ -1,3 +1,5 @@
+Version 1.5.1
+				German translation file, thanks to Sascha Bürk
 Version 1.5.0
 				Tokens stored under username and not a generic "tokensfile"
 Version 1.4.1
