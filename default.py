@@ -187,16 +187,18 @@ else:
                     
                         #If more than two entries, something is wrong
                         json_result = json.loads(letsGo.findMedia(showname, 'tv', 2))
-                        #xbmc.log("**********")
-                        #xbmc.log("Test TV show: " + showname + " " + season + " " + episode)
-                        #xbmc.log("Number of results: " + str(len(json_result)))
-                        #xbmc.log("**********")
-                        #raise SystemExit
+                        xbmc.log("**********")
+                        xbmc.log("Test TV show: " + showname + " " + season + " " + episode)
+                        xbmc.log("Number of results: " + str(len(json_result)))
+                        xbmc.log("**********")
+                        raise SystemExit
                         if len(json_result) == 1:
+                            xbmc.log("Submitting TV: " + showname + " " + season + " " + episode)
                             letsGo.checking(json_result[0]['media']['id'], season, episode, displayMessage)
                             if verboseScreen:
                                 xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
                         else:
+                            xbmc.log("Number of results: " + str(len(json_result)))
                             if verboseScreen:
                                 xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
                         checkedTitle = currentTitle
@@ -209,16 +211,18 @@ else:
                         
                         #If more than two entries, something is wrong
                         json_result = json.loads(letsGo.findMedia(movieName, 'movie', 2))
-                        #xbmc.log("**********")
-                        #xbmc.log("Test movie: " + movieName)
-                        #xbmc.log("Number of results: " + str(len(json_result)))
-                        #xbmc.log("**********")
-                        #raise SystemExit
+                        xbmc.log("**********")
+                        xbmc.log("Test movie: " + movieName)
+                        xbmc.log("Number of results: " + str(len(json_result)))
+                        xbmc.log("**********")
+                        raise SystemExit
                         if len(json_result) == 1:
+                            xbmc.log("Submitting Movie: " + movieName)
                             letsGo.checking(json_result[0]['media']['id'], season, episode, 'watched on XBMC with gomiso addon')
                             if verboseScreen:
                                 xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
                         else:
+                            xbmc.log("Number of results: " + str(len(json_result)))
                             if verboseScreen:
                                 xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30917), 5000, __settings__.getAddonInfo("icon")))
                         checkedTitle = currentTitle
