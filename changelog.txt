@@ -1,5 +1,6 @@
-Version 1.5.1
+Version 1.6.0
 				German translation file, thanks to Sascha Bürk
+				If two movies or TV series have the same name, no submission
 Version 1.5.0
 				Tokens stored under username and not a generic "tokensfile"
 Version 1.4.1

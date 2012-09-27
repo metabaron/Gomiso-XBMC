@@ -10,7 +10,7 @@ import simplejson as json
 __author__ = "Mathieu Feulvarch"
 __copyright__ = "Copyright 2011, Mathieu Feulvarch "
 __license__ = "GPL"
-__version__ = "1.5.1"
+__version__ = "1.6.0"
 __maintainer__ = "Mathieu Feulvarch"
 __email__ = "mathieu@feulvarch.fr"
 __status__ = "Production"
@@ -34,6 +34,7 @@ settingsFile = addon_work_folder + '/settings.xml'
 
 #Now that we appended the directories, let's import
 from gomiso import gomiso
+import shutil
 
 def deleteAutostart():
 #	if os.path.exists(AUTOEXEC_FILE):
@@ -129,9 +130,7 @@ password = __settings__.getSetting('Password')
 
 #Class instanciation and authentification with application key and secret
 letsGo = gomiso()
-tokensFile = addon_work_folder + '/' + username
-xbmc.log("USername: " + username)
-xbmc.log("Token filename: " + tokensFile)
+
 if letsGo.authentification('AgmVUNp8BgtTLQWElAnA', 'BL7xQH3Aeut68IWsOD6SGoUfsRqkC5t16jLg', username, password, tokensFile) == False:
     xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', __language__(30921), 5000, __settings__.getAddonInfo("icon")))
 else:
@@ -186,10 +185,14 @@ else:
                         season = xbmc.getInfoLabel("VideoPlayer.Season")
                         episode = xbmc.getInfoLabel("VideoPlayer.Episode")
                     
+                        #If more than two entries, something is wrong
+                        json_result = json.loads(letsGo.findMedia(showname, 'tv', 2))
+                        #xbmc.log("**********")
                         #xbmc.log("Test TV show: " + showname + " " + season + " " + episode)
-                        #Retrieve only one entry but would be good to have a threshold level like if more than 20 entries, no submit
-                        json_result = json.loads(letsGo.findMedia(showname, 'tv', 1))
-                        if len(json_result) != 0:
+                        #xbmc.log("Number of results: " + str(len(json_result)))
+                        #xbmc.log("**********")
+                        #raise SystemExit
+                        if len(json_result) == 1:
                             letsGo.checking(json_result[0]['media']['id'], season, episode, displayMessage)
                             if verboseScreen:
                                 xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', showname + ' S' + season + 'E' + episode + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
@@ -204,10 +207,14 @@ else:
                         movieName = unicode(xbmc.getInfoLabel("VideoPlayer.Title"), errors="ignore")
                         movieName = movieName.replace(",", '')
                         
+                        #If more than two entries, something is wrong
+                        json_result = json.loads(letsGo.findMedia(movieName, 'movie', 2))
+                        #xbmc.log("**********")
                         #xbmc.log("Test movie: " + movieName)
-                        #Retrieve only one entry but would be good to have a threshold level like if more than 20 entries, no submit
-                        json_result = json.loads(letsGo.findMedia(movieName, 'movie', 1))
-                        if len(json_result) != 0:
+                        #xbmc.log("Number of results: " + str(len(json_result)))
+                        #xbmc.log("**********")
+                        #raise SystemExit
+                        if len(json_result) == 1:
                             letsGo.checking(json_result[0]['media']['id'], season, episode, 'watched on XBMC with gomiso addon')
                             if verboseScreen:
                                 xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))

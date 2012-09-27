@@ -1,6 +1,6 @@
 # This is the version of this source code.
 
-manual_verstr = "1.5.1"
+manual_verstr = "1.6.0"
 
 
 
