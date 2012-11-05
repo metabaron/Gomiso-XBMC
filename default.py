@@ -34,6 +34,7 @@ settingsFile = addon_work_folder + '/settings.xml'
 
 #Now that we appended the directories, let's import
 from gomiso import gomiso
+from pprint import pprint
 import shutil
 
 def deleteAutostart():
@@ -187,12 +188,14 @@ else:
                     
                         #If more than two entries, something is wrong
                         json_result = json.loads(letsGo.findMedia(showname, 'tv', 2))
-                        xbmc.log("**********")
-                        xbmc.log("Test TV show: " + showname + " " + season + " " + episode)
-                        xbmc.log("Number of results: " + str(len(json_result)))
-                        xbmc.log("**********")
-                        raise SystemExit
-                        if len(json_result) == 1:
+                        #json_result = json.loads(letsGo.findExactMedia(showname, 'tv', 'Parting Gifts', '', 2))
+                        #xbmc.log("**********")
+                        #xbmc.log("Test TV show: " + showname + " " + season + " " + episode + " Name: " + xbmc.getInfoLabel("VideoPlayer.Title"))
+                        #xbmc.log("Number of results: " + str(len(json_result['results'])))
+                        #xbmc.log("**********")
+                        #pprint(json_result)
+                        #raise SystemExit
+                        if len(json_result) >= 1:
                             xbmc.log("Submitting TV: " + showname + " " + season + " " + episode)
                             letsGo.checking(json_result[0]['media']['id'], season, episode, displayMessage)
                             if verboseScreen:
@@ -211,14 +214,14 @@ else:
                         
                         #If more than two entries, something is wrong
                         json_result = json.loads(letsGo.findMedia(movieName, 'movie', 2))
-                        xbmc.log("**********")
-                        xbmc.log("Test movie: " + movieName)
-                        xbmc.log("Number of results: " + str(len(json_result)))
-                        xbmc.log("**********")
-                        raise SystemExit
-                        if len(json_result) == 1:
+                        #xbmc.log("**********")
+                        #xbmc.log("Test movie: " + movieName)
+                        #xbmc.log("Number of results: " + str(len(json_result)))
+                        #xbmc.log("**********")
+                        #raise SystemExit
+                        if len(json_result) >= 1:
                             xbmc.log("Submitting Movie: " + movieName)
-                            letsGo.checking(json_result[0]['media']['id'], season, episode, 'watched on XBMC with gomiso addon')
+                            letsGo.checking(json_result[0]['media']['id'], 0, 0, 'watched on XBMC with gomiso addon')
                             if verboseScreen:
                                 xbmc.executebuiltin("XBMC.Notification(%s, %s, %i, %s)"  % ('Gomiso', movieName + ' ' + __language__(30918), 5000, __settings__.getAddonInfo("icon")))
                         else:
